@@ -6,9 +6,9 @@ import Lenis from 'lenis';
 import Preloader from './components/Preloader';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
-import Origin from './components/Origin';
+import BrewScene from './components/BrewScene';
 import Roasting from './components/Roasting';
-import Pour from './components/Pour';
+import Origin from './components/Origin';
 import Products from './components/Products';
 import Story from './components/Story';
 import Footer from './components/Footer';
@@ -21,7 +21,6 @@ gsap.registerPlugin(ScrollTrigger);
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [cartItems, setCartItems] = useState([
-    // Start with 1 default luxury reserve item so drawer is immediately compelling
     {
       id: 1,
       name: "Aditya Reserve No. 1",
@@ -143,15 +142,28 @@ export default function App() {
           />
 
           <main ref={mainRef}>
+            {/* Scene A: Cinematic Plantation Hero */}
             <Hero />
-            <Origin />
+
+            {/* Scene B & C: Three.js 3D Brewing Experience & The Dramatic Pouring Sequence */}
+            <BrewScene />
+
+            {/* Molecular Roasting Alchemy */}
             <Roasting />
-            <Pour />
+
+            {/* Scene D: Warm-Cream Volcanic Terroir & Coffee Beans */}
+            <Origin />
+
+            {/* Scene E: Grand Cru Packaging & Product Showcase */}
             <Products
               onAddToCart={handleAddToCart}
               onInspectProduct={(prod) => setActiveCuppingProduct(prod)}
             />
+
+            {/* Scene F: Growers, Origins & The Aditya Manifesto */}
             <Story />
+
+            {/* Scene G: Private Allocation Call to Action & Luxury Boutiques Footer */}
             <Footer />
           </main>
 

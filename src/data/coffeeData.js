@@ -37,9 +37,9 @@ export const palette = {
 };
 
 export const navLinks = [
-  { label: "Terroir", href: "#origin" },
+  { label: "Extraction", href: "#pour" },
   { label: "Alchemy", href: "#roasting" },
-  { label: "The Extraction", href: "#pour" },
+  { label: "Terroir", href: "#origin" },
   { label: "Grand Cru", href: "#collection" },
   { label: "Manifesto", href: "#story" },
 ];

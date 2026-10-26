@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { MapPin, Mountain, SunMedium, Users, ArrowUpRight } from 'lucide-react';
+import { MapPin, Mountain, SunMedium, Compass, Sparkles, Layers } from 'lucide-react';
 import { originStages } from '../data/coffeeData';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,64 +11,54 @@ export default function Origin() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Header
-      gsap.from('.origin__eyebrow', {
+      // Header entrance
+      gsap.from('.origin-cream__eyebrow', {
         opacity: 0,
         y: 25,
         duration: 0.8,
         ease: 'power3.out',
         scrollTrigger: {
-          trigger: '.origin__header',
+          trigger: '.origin-cream__header',
           start: 'top 80%',
         },
       });
 
-      gsap.from('.origin__title', {
+      gsap.from('.origin-cream__title', {
         opacity: 0,
         y: 35,
         duration: 1,
         ease: 'power3.out',
         scrollTrigger: {
-          trigger: '.origin__header',
+          trigger: '.origin-cream__header',
           start: 'top 80%',
         },
       });
 
+      // Layered cards animation
       originStages.forEach((_, index) => {
-        const stage = `.origin__stage--${index}`;
+        const cardSelector = `.origin-cream-card--${index}`;
 
-        gsap.from(`${stage} .origin__stage-visual`, {
+        gsap.from(`${cardSelector} .origin-cream-card__visual`, {
           opacity: 0,
-          scale: 0.94,
-          x: index % 2 === 0 ? -40 : 40,
-          duration: 1.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: stage,
-            start: 'top 70%',
-          },
-        });
-
-        gsap.from(`${stage} .origin__stage-content`, {
-          opacity: 0,
+          scale: 0.95,
           y: 40,
           duration: 1,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: stage,
-            start: 'top 65%',
+            trigger: cardSelector,
+            start: 'top 75%',
           },
         });
 
-        // Parallax image scrub
-        gsap.to(`${stage} .origin__stage-image`, {
-          yPercent: -15,
-          ease: 'none',
+        gsap.from(`${cardSelector} .origin-cream-card__content`, {
+          opacity: 0,
+          y: 30,
+          duration: 0.9,
+          delay: 0.15,
+          ease: 'power3.out',
           scrollTrigger: {
-            trigger: stage,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.2,
+            trigger: cardSelector,
+            start: 'top 75%',
           },
         });
       });
@@ -78,74 +68,76 @@ export default function Origin() {
   }, []);
 
   return (
-    <section className="origin" ref={sectionRef} id="origin">
-      <div className="container">
-        <div className="origin__header">
-          <p className="origin__eyebrow">Terroir & Sanctuary</p>
-          <h2 className="origin__title">The Volcanic Cradle</h2>
-          <p className="origin__lead">
-            Where tectonic activity meets equatorial cloud mist at 2,150 meters altitude.
-          </p>
-        </div>
-      </div>
+    <section className="origin-cream" ref={sectionRef} id="origin">
+      {/* Decorative Warm Cream Top Border */}
+      <div className="origin-cream__top-curve" />
 
-      <div className="origin__stages">
-        {originStages.map((stage, index) => (
-          <div
-            key={stage.id}
-            className={`origin__stage origin__stage--${index}`}
-          >
-            <div
-              className={`origin__stage-inner ${
-                index % 2 !== 0 ? 'origin__stage-inner--reverse' : ''
+      <div className="container">
+        {/* Editorial Section Header */}
+        <header className="origin-cream__header">
+          <div className="origin-cream__eyebrow">
+            <Compass size={13} className="text-burnt-orange" />
+            <span className="mono">Scene D · High-Altitude Terroir</span>
+          </div>
+          <h2 className="origin-cream__title">Where Volcanic Basalt Meets The Mist</h2>
+          <p className="origin-cream__lead">
+            At 2,150 meters elevation, nature composes what heat can only reveal. Mineral-dense volcanic ash, slow equatorial cloud mists, and hand-sorted generational harvests.
+          </p>
+        </header>
+
+        {/* Micro-Lot Terroir Cards */}
+        <div className="origin-cream__cards">
+          {originStages.map((stage, index) => (
+            <article
+              key={stage.id}
+              className={`origin-cream-card origin-cream-card--${index} ${
+                index % 2 !== 0 ? 'origin-cream-card--reverse' : ''
               }`}
             >
-              {/* Visual Card with Parallax Image */}
-              <div className="origin__stage-visual" data-cursor="TERROIR">
+              {/* Visual Side */}
+              <div className="origin-cream-card__visual" data-cursor="TERROIR">
                 <img
-                  className="origin__stage-image"
+                  className="origin-cream-card__img"
                   src={stage.image}
                   alt={stage.title}
                   loading="lazy"
                 />
-                <div className="origin__stage-gradient" />
-
-                <div className="origin__stage-tag">
-                  <Mountain size={12} className="text-burnt-orange" />
+                <div className="origin-cream-card__badge">
+                  <Mountain size={13} className="text-burnt-orange" />
                   <span>{stage.tag}</span>
                 </div>
-
-                <div className="origin__stage-stat">
-                  <div className="origin__stage-stat-value">
-                    {stage.stat.value}
-                  </div>
-                  <div className="origin__stage-stat-label">
-                    {stage.stat.label}
-                  </div>
+                <div className="origin-cream-card__stat-pill">
+                  <span className="origin-cream-card__stat-num">{stage.stat.value}</span>
+                  <span className="origin-cream-card__stat-lbl">{stage.stat.label}</span>
                 </div>
               </div>
 
-              {/* Editorial Description */}
-              <div className="origin__stage-content">
-                <div className="origin__stage-coord">
+              {/* Text Side */}
+              <div className="origin-cream-card__content">
+                <div className="origin-cream-card__coord">
                   <MapPin size={12} className="text-burnt-orange" />
                   <span className="mono">{stage.coordinates}</span>
                 </div>
 
-                <p className="origin__stage-subtitle">{stage.subtitle}</p>
-                <h3 className="origin__stage-title">{stage.title}</h3>
-                <p className="origin__stage-description">
-                  {stage.description}
-                </p>
+                <div className="origin-cream-card__index-pill">Plot 0{index + 1}</div>
+                <h3 className="origin-cream-card__title">{stage.title}</h3>
+                <h4 className="origin-cream-card__subtitle">{stage.subtitle}</h4>
+                <p className="origin-cream-card__desc">{stage.description}</p>
 
-                <div className="origin__stage-footer">
-                  <div className="origin__stage-divider" />
-                  <span className="origin__stage-num">0{index + 1} / 03</span>
+                <div className="origin-cream-card__features">
+                  <div className="origin-cream-card__feature">
+                    <Layers size={14} className="text-burnt-orange" />
+                    <span>Basaltic Silicate Soil Matrix</span>
+                  </div>
+                  <div className="origin-cream-card__feature">
+                    <SunMedium size={14} className="text-burnt-orange" />
+                    <span>14-Month Slow Cell Maturation</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

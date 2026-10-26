@@ -221,10 +221,10 @@ export default function Hero() {
 
       {/* Editorial Scroll Indicator */}
       <a
-        href="#origin"
+        href="#pour"
         className="hero__scroll-indicator"
         data-cursor="SCROLL"
-        aria-label="Scroll to explore terroir"
+        aria-label="Scroll to explore brewing ritual"
       >
         <span className="hero__scroll-text">Enter The Reserve</span>
         <div className="hero__scroll-mouse">
